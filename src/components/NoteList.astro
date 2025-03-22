@@ -53,12 +53,10 @@ const { notes } = Astro.props;
 
 <ul>
   {notes.map(note => (
-    <li
-      key={note.slug}
-      data-hidden={note.tags.includes('hidden') ? 'true' : undefined}
-      style={note.tags.includes('hidden') ? 'display: none;' : ''}
-    >
-      <a href={`/notes/${note.slug}`}>{note.title}</a>
+    <li>
+     <a href={`${Astro.site.pathname}notes/${note.slug}/`}>
+        {note.title}
+      </a>
     </li>
   ))}
 </ul>

@@ -1,13 +1,11 @@
 ---
 import { getAllNotes } from '../utils/getNotes';
 import NoteList from '../components/NoteList.astro';
-
 const notes = getAllNotes();
 ---
 
 <html lang="en">
   <head>
-    <base href="/website/">
     <meta charset="UTF-8" />
     <title>Abhiram's Notes</title>
     <style>
@@ -61,7 +59,7 @@ const notes = getAllNotes();
   </head>
   <body>
     <section class="intro">
-      <img src="/website/me.jpeg" alt="My photo" width="150" height="150" style="border-radius: 50%;" />
+      <img src={`${Astro.site.pathname}me.jpeg`} alt="My photo" width="150" height="150" style="border-radius: 50%;" />
       <div class="intro-text">
         <h1>Hey, I'm Abhiram Cherukupalli</h1>
         <p>I'm a sophomore studying physics at Caltech.</p>

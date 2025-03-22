@@ -1,19 +1,14 @@
 ---
-title: Hello Math
-tags: []
+title: Operator Product Expansion and the Image of a Rolling sphere
+tags: [hidden]
 ---
 
-This is inline math: $E = mc^2$  
-This is a block:
 
-$$
-\int_{-\infty}^\infty e^{-x^2} dx = \sqrt{\pi}
-$$
+Conformal Transformations take spheres to spheres!
 
-- Bullet 1
-- Bullet 2
+You can see this in a cool way as blah blah
 
-`$this_should_not_be_rendered$`
+This fact is used in OPE as blah blah
 
-```js
-const value = "$also_protected$";
+but a really cool way to see it being applied is the image of a rolling relativistic sphere
+
