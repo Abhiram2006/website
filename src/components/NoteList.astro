@@ -9,7 +9,6 @@ export interface Props {
 
 const { notes } = Astro.props;
 ---
-
 <style>
   ul {
     list-style: none;
@@ -31,7 +30,7 @@ const { notes } = Astro.props;
     text-decoration: underline;
   }
 
-  .hidden {
+  [data-hidden="true"] {
     display: none;
   }
 
@@ -52,21 +51,24 @@ const { notes } = Astro.props;
 </div>
 
 <ul>
-  {notes.map(note => (
-    <li>
-     <a href={`${Astro.site.pathname}notes/${note.slug}/`}>
-        {note.title}
-      </a>
-    </li>
-  ))}
+  {notes.map(note => {
+    const isHidden = note.tags.includes('hidden');
+    return (
+      <li data-hidden={isHidden}>
+        <a href={`${Astro.site.pathname}notes/${note.slug}/`}>
+          {note.title}
+        </a>
+      </li>
+    );
+  })}
 </ul>
 
 <script client:load>
   const checkbox = document.getElementById('toggle-hidden');
   checkbox?.addEventListener('change', () => {
-    const hiddenItems = document.querySelectorAll('[data-hidden="true"]');
+    const hiddenItems = document.querySelectorAll('[data-hidden]');
     hiddenItems.forEach(el => {
-      el.style.display = checkbox.checked ? '' : 'none';
+      el.dataset.hidden = checkbox.checked ? 'false' : 'true';
     });
   });
 </script>
