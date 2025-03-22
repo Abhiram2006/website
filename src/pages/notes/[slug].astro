@@ -1,0 +1,97 @@
+---
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { marked } from 'marked';
+import katex from 'katex';
+
+export async function getStaticPaths() {
+  const notesDir = path.join(process.cwd(), 'publicnotes');
+  const files = fs.readdirSync(notesDir);
+
+  return files.map((filename) => {
+    const slug = filename.replace(/\.md$/, '');
+    return { params: { slug } };
+  });
+}
+
+const { slug } = Astro.params;
+
+const filePath = path.join(process.cwd(), 'publicnotes', `${slug}.md`);
+const fileContent = fs.readFileSync(filePath, 'utf-8');
+const { content, data } = matter(fileContent);
+
+// ✅ Step 1: Parse Markdown to HTML
+let html = marked.parse(content);
+
+// ✅ Step 2: Render math outside code/pre blocks
+function replaceMathOutsideTags(html) {
+  // Split HTML into parts, isolating <pre> and <code> blocks
+  const parts = html.split(/(<pre[\s\S]*?<\/pre>|<code[\s\S]*?<\/code>)/gi);
+
+  return parts
+    .map((part) => {
+      // Skip any block that contains <pre> or <code>
+      if (/<pre|<code/i.test(part)) return part;
+
+      // Render block math: $$...$$
+      part = part.replace(/\$\$([^$]+)\$\$/g, (_, math) =>
+        `<div class="katex-block">${katex.renderToString(math.trim(), { displayMode: true })}</div>`
+      );
+
+      // Render inline math: $...$
+      part = part.replace(/(^|[^\\])\$([^\$]+?)\$/g, (_, pre, math) =>
+        `${pre}${katex.renderToString(math.trim(), { displayMode: false })}`
+      );
+
+      return part;
+    })
+    .join('');
+}
+
+html = replaceMathOutsideTags(html);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{data.title}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        line-height: 1.6;
+      }
+
+      a {
+        color: #0070f3;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      pre, code {
+        background-color: #f4f4f4;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: monospace;
+        overflow-x: auto;
+      }
+
+      .katex-block {
+        text-align: center;
+        margin: 1.5rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="/">← Back to notes</a>
+    <h1>{data.title}</h1>
+    <div set:html={html}></div>
+  </body>
+</html>
