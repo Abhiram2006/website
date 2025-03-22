@@ -1,5 +1,7 @@
-export default {
-    site: 'https://Abhiram2006.github.io/website/',
-    base: '/website/',
-  };
-  
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({
+  site: 'https://yourusername.github.io/website', // 👈 change this
+  base: '/website/',
+  outDir: './dist',
+});
