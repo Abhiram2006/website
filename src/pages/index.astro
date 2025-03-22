@@ -1,0 +1,82 @@
+---
+import { getAllNotes } from '../utils/getNotes';
+import NoteList from '../components/NoteList.astro';
+const notes = getAllNotes();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Abhiram's Notes</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 2rem;
+        line-height: 1.6;
+      }
+
+      .intro {
+        display: flex;
+        align-items: flex-start;
+        gap: 2rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .intro img {
+        border-radius: 50%;
+        width: 160px;
+        height: 160px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+
+      .intro-text {
+        flex: 1;
+        min-width: 250px;
+      }
+
+      h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.8rem;
+      }
+
+      p {
+        margin: 0.4rem 0;
+      }
+
+      a {
+        color: #0070f3;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="intro" style="display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem;">
+  <img
+    src={`${Astro.site.pathname}me.jpg`}
+    alt="My photo"
+    width="160"
+    height="160"
+    loading="lazy"
+    style="border-radius: 50%; object-fit: cover; flex-shrink: 0;"
+  />
+  <div class="intro-text" style="flex: 1; min-width: 250px;">
+    <h1>Hey, I'm Abhiram Cherukupalli</h1>
+    <p>I'm a sophomore studying physics at Caltech.</p>
+    <p>This is where I drop thoughts and ideas that feel worth sharing — or at least remembering.</p>
+    <p>Some notes are rough, half-baked, or just weird. They’re hidden by default, but you can toggle them if you are brave.</p>
+    <p>Thanks for being part of my journey finding a clarity in thought.</p>
+    <p>If anything below resonates, email me: <a href="mailto:abhiram@caltech.edu">abhiram@caltech.edu</a></p>
+  </div>
+</section>
+
+<NoteList notes={notes} />
+  </body>
+</html>

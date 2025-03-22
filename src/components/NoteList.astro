@@ -1,0 +1,72 @@
+---
+export interface Props {
+  notes: {
+    title: string;
+    slug: string;
+    tags: string[];
+  }[];
+}
+
+const { notes } = Astro.props;
+---
+
+<style>
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    margin: 0.75rem 0;
+  }
+
+  a {
+    font-size: 1.1rem;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  label {
+    font-size: 0.95rem;
+  }
+
+  input[type='checkbox'] {
+    margin-right: 0.5rem;
+  }
+</style>
+
+<div style="margin-bottom: 1rem;">
+  <label>
+    <input type="checkbox" id="toggle-hidden" />
+    Show hidden notes
+  </label>
+</div>
+
+<ul>
+  {notes.map(note => (
+    <li>
+     <a href={`${Astro.site.pathname}notes/${note.slug}/`}>
+        {note.title}
+      </a>
+    </li>
+  ))}
+</ul>
+
+<script client:load>
+  const checkbox = document.getElementById('toggle-hidden');
+  checkbox?.addEventListener('change', () => {
+    const hiddenItems = document.querySelectorAll('[data-hidden="true"]');
+    hiddenItems.forEach(el => {
+      el.style.display = checkbox.checked ? '' : 'none';
+    });
+  });
+</script>
