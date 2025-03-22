@@ -7,7 +7,10 @@ import katex from 'katex';
 
 export async function getStaticPaths() {
   const notesDir = path.join(process.cwd(), 'publicnotes');
-  const files = fs.readdirSync(notesDir);
+  const files = fs.readdirSync(notesDir).filter(
+  (file) => file.endsWith('.md') && !file.startsWith('.')
+);
+
 
   return files.map((filename) => {
     const slug = filename.replace(/\.md$/, '');
