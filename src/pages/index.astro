@@ -58,18 +58,25 @@ const notes = getAllNotes();
     </style>
   </head>
   <body>
-    <section class="intro">
-      <img src={`${Astro.site.pathname}me.jpeg`} alt="My photo" width="160" height="160" loading="lazy" style="border-radius: 50%;" />
-      <div class="intro-text">
-        <h1>Hey, I'm Abhiram Cherukupalli</h1>
-        <p>I'm a sophomore studying physics at Caltech.</p>
-        <p>This is where I drop thoughts and ideas that feel worth sharing — or at least remembering.</p>
-        <p>Some notes are rough, half-baked, or just weird. They’re hidden by default, but you can toggle them if you are brave.</p>
-        <p>Thanks for being part of my journey in finding a clarity in thought.</p>
-        <p>If anything below resonates, email me: <a href="mailto:abhiram@caltech.edu">abhiram@caltech.edu</a></p>
-      </div>
-    </section>
+    <section class="intro" style="display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem;">
+  <img
+    src={`${Astro.site.pathname}me.jpeg`}
+    alt="My photo"
+    width="160"
+    height="160"
+    loading="lazy"
+    style="border-radius: 50%; object-fit: cover; flex-shrink: 0;"
+  />
+  <div class="intro-text" style="flex: 1; min-width: 250px;">
+    <h1>Hey, I'm Abhiram Cherukupalli</h1>
+    <p>I'm a sophomore studying physics at Caltech.</p>
+    <p>This is where I drop thoughts and ideas that feel worth sharing — or at least remembering.</p>
+    <p>Some notes are rough, half-baked, or just weird. They’re hidden by default, but you can toggle them if you are brave.</p>
+    <p>Thanks for being part of my journey in finding a clarity in thought.</p>
+    <p>If anything below resonates, email me: <a href="mailto:abhiram@caltech.edu">abhiram@caltech.edu</a></p>
+  </div>
+</section>
 
-    <NoteList notes={notes} />
+<NoteList notes={notes} />
   </body>
 </html>
