@@ -27,11 +27,11 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Disable Git credential helper
-        run: git config --global credential.helper ""
+      - name: Clear Git credentials (if any)
+        run: git config --global --unset credential.helper
 
       - name: Deploy to GitHub Pages
-        uses: github/actions/setup-pages@v1
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
