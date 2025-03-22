@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://yourusername.github.io/website', // 👈 change this
+  site: 'https://Abhiram2006.github.io/website',
   base: '/website/',
   outDir: './dist',
 });
